@@ -12,9 +12,6 @@ patientDict.setdefault('patientDose', None)
 patientDict.setdefault('patientFreq', None)
 patientDict.setdefault('patientWeight', None)
 
-#intialize patient List, which will then capture the patient dictionaries
-patientList=[]
-
 ####function to take in patient's age, dose, freq, and weight (in Kg)
 def acetaminophen2(age, dose, freq, weight):
     patientDict['patientAge']=age
@@ -42,6 +39,7 @@ def acetaminophen2(age, dose, freq, weight):
                 return True
     else:
         print("STOP!")
+        
     '''
     If dose=="STOP." from input, then print stop. Input the weight and dose,
     then the program will finish executing. Check the 'patientDict' and 'patientList'
@@ -49,12 +47,17 @@ def acetaminophen2(age, dose, freq, weight):
     '''
     
 ####Calling the function inside a while loop to keep asking for input until
+#intialize patient List, which will then capture the patient dictionaries
+patientList=[]
 #loop to update the patient dictionary and capture it in a list
 while True:
     #if the input for dose is not to stop, keep asking for info and appending the dictionary
     if patientDict['patientDose']!="STOP.":
-        y=acetaminophen2(input(), input(), input(), input())
-        patientList.append(patientDict)
-    #if the input for dose is "STOP.", then stop!
+        y=acetaminophen2(input('age: '), input('dose: '), input('freq: '), input('weight: '))
+        #append the current dictionary copy to the list. Each iteration creates a new copy, but not a new 'patientDict' object
+        patientList.append(patientDict.copy())
     elif patientDict['patientDose']=="STOP.":
+        del patientList[-1]
+        print(patientList)
         break
+    
